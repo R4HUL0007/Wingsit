@@ -1,0 +1,4 @@
+1. npm init -y for package json
+2. npm create vite@latest . for framework and variant
+3. npm i -D nodemon
+4. openssl rand -base64 32  Jwt_Secret
