@@ -42,12 +42,10 @@ export const  followUnfollowUser = async(req, res) => {
             await User.findByIdAndUpdate(req.user._id, { $pull : { following:id }});
             //todo return id of the user as a response
 
-            
-            res.status(200).json({ message: "User Unfollowed Successfully"});
+            return res.status(200).json({ message: "User Unfollowed Successfully"});
         }else{
             await User.findByIdAndUpdate(id, { $push : { followers: req.user._id }});
             await User.findByIdAndUpdate(req.user._id, { $push : { following:id }});
-            res.status(200).json({ message: "User Followed Successfully" });
             //send notification to user
             const newNotification = new Notification({
                 type : "follow",
@@ -57,14 +55,11 @@ export const  followUnfollowUser = async(req, res) => {
             await newNotification.save();
             //todo return id of the user as a response
 
-            res.status(200).json({ message: "User Followed Successfully" });
-
-
+            return res.status(200).json({ message: "User Followed Successfully" });
         }
-
     }catch(error){
         console.log("Error in followUnfollowUser: ",error.message);
-        res.status(500).json({error: error.message});
+        return res.status(500).json({error: error.message});
     }
 };
 
