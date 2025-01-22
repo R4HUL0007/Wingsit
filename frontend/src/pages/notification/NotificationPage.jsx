@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 
 const NotificationPage = () => {
-	const isLoading = true;
+	const isLoading = false;
 	const notifications = [
 		{
 			_id: "1",
