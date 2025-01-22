@@ -7,6 +7,7 @@ import postRoutes from "./routes/post.routes.js"
 import userRoutes from "./routes/user.routes.js"
 import authRoutes from "./routes/auth.routes.js";
 import connectMongoDB from "./db/connectMongoDB.js";
+import notificationsRoutes from "./routes/notification.routes.js"
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/notifications", notificationsRoutes)
 
 app.listen(PORT , ()=> {
     console.log(`server is running on port ${PORT}`);
