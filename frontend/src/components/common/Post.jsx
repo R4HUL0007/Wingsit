@@ -15,8 +15,9 @@ const Post = ({ post }) => {
 	
 	const { data:authUser } = useQuery({ queryKey: ["authUser"] });
 	const queryClient = useQueryClient();
+	
 	const { mutate: deletePost, isPending } = useMutation({ 
-		mutationFn: async() => {
+		mutationFn: async () => {
 			try{
 				const res = await fetch(`api/posts/${post._id}`,{
 					method: "DELETE",
@@ -35,7 +36,8 @@ const Post = ({ post }) => {
 		onSuccess: () => {
 			toast.success("Post deleted successfuly");
 			queryClient.invalidateQueries({ queryKey: ["posts"]});
-		}
+			
+		},
 			
 	 });
 
@@ -50,8 +52,7 @@ const Post = ({ post }) => {
 	const isCommenting = false;
 
 	const handleDeletePost = () => {
-		deletePost();
-		window.location.reload();
+		deletePost();	
 	};
 
 	const handlePostComment = (e) => {
