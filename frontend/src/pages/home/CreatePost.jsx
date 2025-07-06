@@ -4,11 +4,14 @@ import { useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import Picker from 'emoji-picker-react';
 
 const CreatePost = () => {
 	const [text, setText] = useState("");
 	const [img, setImg] = useState(null);
 	const imgRef = useRef(null);
+	const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+	const textareaRef = useRef(null);
 
 	const { data:authUser } = useQuery({ queryKey: ['authUser'] });
 	const queryClient = useQueryClient();
@@ -58,6 +61,21 @@ const CreatePost = () => {
 		}
 	};
 
+	const handleEmojiClick = (emojiData) => {
+		const emoji = emojiData.emoji;
+		const textarea = textareaRef.current;
+		if (!textarea) return;
+		const start = textarea.selectionStart;
+		const end = textarea.selectionEnd;
+		const newText = text.slice(0, start) + emoji + text.slice(end);
+		setText(newText);
+		setShowEmojiPicker(false);
+		setTimeout(() => {
+			textarea.focus();
+			textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+		}, 0);
+	};
+
 	return (
 		<div className='flex p-4 items-start gap-4 border-b border-gray-700'>
 			<div className='avatar'>
@@ -67,11 +85,15 @@ const CreatePost = () => {
 			</div>
 			<form className='flex flex-col gap-2 w-full' onSubmit={handleSubmit}>
 				<textarea
+					ref={textareaRef}
 					className='textarea w-full p-0 text-lg resize-none border-none focus:outline-none  border-gray-800'
 					placeholder='What is happening?!'
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 				/>
+				{showEmojiPicker && (
+					<div className='absolute z-50 mt-2'><Picker onEmojiClick={handleEmojiClick} theme='dark' /></div>
+				)}
 				{img && (
 					<div className='relative w-72 mx-auto'>
 						<IoCloseSharp
@@ -91,7 +113,7 @@ const CreatePost = () => {
 							className='fill-primary w-6 h-6 cursor-pointer'
 							onClick={() => imgRef.current.click()}
 						/>
-						<BsEmojiSmileFill className='fill-primary w-5 h-5 cursor-pointer' />
+						<BsEmojiSmileFill className='fill-primary w-5 h-5 cursor-pointer' onClick={() => setShowEmojiPicker((v) => !v)} />
 					</div>
 					<input type='file' 
                     accept="image/*" hidden ref={imgRef} onChange={handleImgChange} />

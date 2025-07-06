@@ -1,9 +1,10 @@
 import Post from "./Post";
 import PostSkeleton from "../skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Posts = ( { feedType, username, userId } ) => {
+	const [error, setError] = useState("");
 
 	const getPostEndpoint = () => {
 		switch(feedType) {
@@ -14,7 +15,9 @@ const Posts = ( { feedType, username, userId } ) => {
 			case "posts":
 				return `/api/posts/user/${username}`;
 			case "likes":
-				return `api/posts/likes/${userId}`	
+				return `/api/posts/likes/${userId}`;
+			case "bookmarks":
+				return "/api/posts/bookmarks";
 			default:
 				return "/api/posts/all";
 		}
@@ -22,12 +25,16 @@ const Posts = ( { feedType, username, userId } ) => {
 
 	const POST_ENDPOINT = getPostEndpoint();
 
-	
-
-	const{ data:posts, isLoading, refetch, isRefetching  } = useQuery ({
-		querykey :["posts"],
+	const {
+		data: posts,
+		isLoading,
+		refetch,
+		isRefetching,
+		error: queryError,
+	} = useQuery({
+		queryKey: ["posts"],
 		queryFn: async () => {
-			try{
+			try {
 				const res = await fetch(POST_ENDPOINT);
 				const data = await res.json();
 
@@ -37,34 +44,46 @@ const Posts = ( { feedType, username, userId } ) => {
 
 				return data;
 
-			}catch(error){
-				throw new Error(error)
+			} catch (error) {
+				setError(error.message);
+				throw error;
 			}
 		}
 	})
 
 	useEffect(() => {
+		setError("");
 		refetch();
-	}, [ feedType, refetch, username  ]);
+	}, [feedType, refetch, username]);
+
+	if (isLoading || isRefetching) {
+		return (
+			<div className='flex flex-col justify-center'>
+				<PostSkeleton />
+				<PostSkeleton />
+				<PostSkeleton />
+			</div>
+		);
+	}
+
+	if (error || queryError) {
+		return (
+			<div className="text-center my-8 text-red-400 font-bold">
+				{error || queryError.message || "Failed to load posts. Please try again later."}
+			</div>
+		);
+	}
+
+	if (!posts || posts.length === 0) {
+		return <p className='text-center my-4'>No posts in this tab. Switch 👻</p>;
+	}
 
 	return (
-		<>
-			{( isLoading || isRefetching ) && (
-				<div className='flex flex-col justify-center'>
-					<PostSkeleton />
-					<PostSkeleton />
-					<PostSkeleton />
-				</div>
-			)}
-			{!isLoading && !isRefetching && posts?.length === 0 && <p className='text-center my-4'>No posts in this tab. Switch 👻</p>}
-			{!isLoading && !isRefetching && posts && (
-				<div>
-					{posts.map((post) => (
-						<Post key={post._id} post={post} />
-					))}
-				</div>
-			)}
-		</>
+		<div>
+			{posts.map((post) => (
+				<Post key={post._id} post={post} />
+			))}
+		</div>
 	);
 };
 export default Posts;

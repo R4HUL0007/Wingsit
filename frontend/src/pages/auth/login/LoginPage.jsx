@@ -52,11 +52,11 @@ const LoginPage = () => {
 	return (
 		<div className='max-w-screen-xl mx-auto flex h-screen'>
 			<div className='flex-1 hidden lg:flex items-center  justify-center'>
-				<XSvg className='lg:w-2/3 fill-white' />
+				<XSvg className='w-40 h-40' />
 			</div>
 			<div className='flex-1 flex flex-col justify-center items-center'>
-				<form className='flex gap-4 flex-col' onSubmit={handleSubmit}>
-					<XSvg className='w-24 lg:hidden fill-white' />
+				<form className='lg:w-2/3  mx-auto md:mx-20 flex gap-4 flex-col' onSubmit={handleSubmit}>
+					<XSvg className='w-24 h-24 lg:hidden' />
 					<h1 className='text-4xl font-extrabold text-white'>{"Let's"} go.</h1>
 					<label className='input input-bordered rounded flex items-center gap-2'>
 						<MdOutlineMail />
@@ -81,6 +81,9 @@ const LoginPage = () => {
 							value={formData.password}
 						/>
 					</label>
+					<Link to='/forgot-password' className='text-blue-400 hover:underline text-sm text-right mt-1'>
+						Forgotten password?
+					</Link>
 					<button className='btn rounded-full btn-primary text-white'>
 						{ isPending ? "Loading...." : "Login" }
 					</button>

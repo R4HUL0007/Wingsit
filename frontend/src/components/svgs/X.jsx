@@ -1,6 +1,62 @@
 const XSvg = (props) => (
-	<svg aria-hidden='true' viewBox='0 0 24 24' {...props}>
-		<path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' />
+	<svg
+		viewBox="0 0 400 400"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{...props}
+	>
+		<rect width="400" height="400" fill="none" />
+		{/* WS Monogram - larger */}
+		<text
+			x="50%"
+			y="160"
+			textAnchor="middle"
+			fontFamily="Montserrat, Arial, sans-serif"
+			fontWeight="bold"
+			fontSize="170"
+			fill="#fff"
+			letterSpacing="-12"
+			dominantBaseline="middle"
+		>
+			WS
+		</text>
+		{/* Orange swoosh - moved lower */}
+		<path
+			d="M 80 220 Q 200 320 320 220"
+			stroke="#FFA500"
+			strokeWidth="16"
+			fill="none"
+			strokeLinecap="round"
+		/>
+		{/* App name: Wingsit - larger and lower */}
+		<text
+			x="50%"
+			y="340"
+			textAnchor="middle"
+			fontFamily="Montserrat, Arial, sans-serif"
+			fontWeight="bold"
+			fontSize="80"
+			fill="#fff"
+			letterSpacing="0"
+			dominantBaseline="middle"
+		>
+			Wings
+		</text>
+		<text
+			x="50%"
+			y="340"
+			textAnchor="start"
+			fontFamily="Montserrat, Arial, sans-serif"
+			fontWeight="bold"
+			fontSize="80"
+			fill="#FFA500"
+			letterSpacing="0"
+			dominantBaseline="middle"
+			dx="140"
+		>
+			it
+		</text>
 	</svg>
 );
+
 export default XSvg;

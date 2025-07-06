@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     followers: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref : "user",
+            ref : "User",
             default : []
         }
     ],
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     following: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref : "user",
+            ref : "User",
             default : []
         }
     ],
@@ -62,12 +62,37 @@ const userSchema = new mongoose.Schema({
     likedPosts:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "  Post",
+            ref: "Post",
             default: []
         }
-    ]
-
-
+    ],
+    resetPasswordToken: {
+        type: String,
+        default: null,
+    },
+    resetPasswordExpires: {
+        type: Date,
+        default: null,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    otp: {
+        type: String,
+        default: null,
+    },
+    otpExpires: {
+        type: Date,
+        default: null,
+    },
+    bookmarks:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+            default: []
+        }
+    ],
 },{ timestamps: true})
 
 const User = mongoose.model("User", userSchema);
