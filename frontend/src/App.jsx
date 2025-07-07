@@ -1,6 +1,6 @@
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/auth/login/LoginPage";
-import SignupPage from "./pages/auth/signup/SignupPage";
+import SignupPage from "./pages/auth/signup/SignUpPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import OTPVerificationPage from "./pages/auth/OTPVerificationPage";
@@ -82,7 +82,7 @@ function App() {
       <Routes>
         <Route path="/" element= { authUser ? <HomePage /> : <Navigate to= '/login' /> } />
         <Route path="/login" element= { !authUser ? <LoginPage /> : <Navigate to= '/' /> } />
-        <Route path="/signup" element= { !authUser ?  <SignupPage /> : <Navigate to= '/' /> } />
+        <Route path="/signup" element= { !authUser ?  <SignUpPage /> : <Navigate to= '/' /> } />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         <Route path="/verify-otp" element={<OTPVerificationPage />} />
