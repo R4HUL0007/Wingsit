@@ -1,6 +1,6 @@
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/auth/login/LoginPage";
-import SignupPage from "./pages/auth/signup/SignUpPage";
+import SignUpPage from "./pages/auth/signup/SignUpPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import OTPVerificationPage from "./pages/auth/OTPVerificationPage";
