@@ -38,6 +38,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationsRoutes)
 
+
+
 // Socket.io connection
 io.on("connection", (socket) => {
   console.log("A user connected: " + socket.id);
