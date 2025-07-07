@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { io as socketIOClient } from "socket.io-client";
 import { FiSearch, FiImage, FiSmile, FiSend, FiMoreVertical, FiTrash2, FiEdit, FiMenu, FiArrowLeft } from "react-icons/fi";
 import { Picker } from 'emoji-mart';
-import 'emoji-mart/css/emoji-mart.css';
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { FaHeart, FaRegHeart, FaEllipsisH, FaThumbtack, FaEdit, FaTrash, FaSmile, FaPaperclip, FaMicrophone, FaStop, FaPlay, FaPause } from "react-icons/fa";
