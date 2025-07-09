@@ -154,6 +154,8 @@ const Chat = ({ showUserList = true }) => {
     // Join chat room for typing indicators
     socketRef.current.emit("join-chat", { userId: authUser?._id, partnerId: userId });
     
+    // Always remove previous handler before adding a new one
+    socketRef.current.off("newMessage");
     socketRef.current.on("newMessage", (msg) => {
       if (
         (msg.sender === authUser?._id && msg.receiver === userId) ||

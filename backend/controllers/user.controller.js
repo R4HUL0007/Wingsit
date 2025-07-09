@@ -204,7 +204,8 @@ export const sendMessage = async (req, res) => {
     await newNotification.save();
     
     // Emit message to receiver in real time
-    io.emit("newMessage", message);
+    const roomId = [senderId.toString(), receiverId.toString()].sort().join('-');
+    io.to(roomId).emit("newMessage", message);
     
     // Emit real-time notification to the message receiver
     io.to(`user-${receiverId}`).emit("newNotification", {
@@ -442,7 +443,9 @@ export const sendImageMessage = async (req, res) => {
     });
     await newNotification.save();
     
-    io.emit('newMessage', message);
+    // Emit message to receiver in real time
+    const roomId = [senderId.toString(), receiverId.toString()].sort().join('-');
+    io.to(roomId).emit('newMessage', message);
     res.status(201).json(message);
   } catch (error) {
     console.log('Error in sendImageMessage:', error);
